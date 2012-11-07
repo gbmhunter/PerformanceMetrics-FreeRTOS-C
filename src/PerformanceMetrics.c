@@ -1,11 +1,11 @@
 //!
 //! @file 		PerformanceMetrics.c
-//! @author 	Geoffrey Hunter (gbmhunter@gmail.com)
+//! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @date 		16/10/2011
-//! @brief 		
+//! @brief 		See PerformanceMetrics.h
 //! @details
-//!		<b>Last Modified:			</b> 27/09/2011					\n
-//!		<b>Version:					</b> v2.0						\n
+//!		<b>Last Modified:			</b> 07/11/2012					\n
+//!		<b>Version:					</b> v2.0.1						\n
 //!		<b>Company:					</b> CladLabs					\n
 //!		<b>Project:					</b> Free Code Modules			\n
 //!		<b>Language:				</b> C							\n
@@ -16,6 +16,8 @@
 //!		<b>Documentation Format:	</b> Doxygen					\n
 //!		<b>License:					</b> GPLv3						\n
 //!	
+//!		See the Doxygen documentation or PerformanceMetrics.h for a detailed description on this module.
+//!
 
 
 //===============================================================================================//
@@ -25,8 +27,12 @@
 #include "Include.h"
 
 //===============================================================================================//
-//================================== PRECOMPILER CHECKS =========================================//
+//============================================ GUARDS ===========================================//
 //===============================================================================================//
+
+#ifdef __cplusplus
+	extern "C" {
+#endif
 
 #ifndef configENABLE_TASK_PERFORMANCE_METRICS
 	#error Please define the switch configENABLE_TASK_PERFORMANCE_METRICS
@@ -52,11 +58,13 @@
 //================================== PRIVATE VARIABLES ==========================================//
 //===============================================================================================//
 
+//! Holds the task handle of PerformanceMetrics_Task(), once task has been created with
+//! PerformanceMetrics_Start()
 static xTaskHandle taskHandle = 0;
 
 //! @brief 		Main parameters structure. 
 //! @details	Used to create a variable which holds
-// 				modifiable main parameters (which can be updated).
+//! 				modifiable main parameters (which can be updated).
 static struct{
 	uint32 debugPrintTimeMs;
 } performanceMetricsParameters =
@@ -69,7 +77,7 @@ static struct{
 //================================== PRIVATE FUNCTION PROTOTYPES ================================//
 //===============================================================================================//
 
-// Task Functions
+
 void PerformanceMetrics_Task(void *pvParameters);
 
 #if(configPRINT_DEBUG_PERFORMANCE_METRICS == 1)
@@ -80,12 +88,8 @@ void PerformanceMetrics_Task(void *pvParameters);
 //===================================== PUBLIC FUNCTIONS ========================================//
 //===============================================================================================//
 
-//! @breif 		Start-up function for power management
-//! @details 	Creates power management task, creates commmand queue, starts the ADC
-//!				creates interrupt sync semaphore, calls PowerMgmt_SetInitialParameters()
-//!	@note		Not thread-safe. Do not call from any tasks, but call from main() before 
-//!				scheduler is started.
-//! @public
+// See the Doxygen documentation or the function declarations in PerformanceMetrics.h for more information
+
 void PerformanceMetrics_Start(uint32 taskStackSize, uint8 taskPriority)
 {	
 
@@ -114,7 +118,7 @@ xTaskHandle PerformanceMetrics_ReturnTaskHandle(void)
 //! @param		*pvParameters Void pointer (not used)
 //! @note		Not thread-safe. Do not call from any task, this function is a task that
 //!				is called by the FreeRTOS kernel
-//! @public
+//! @private
 void PerformanceMetrics_Task(void *pvParameters)
 {
 	#if(configPRINT_DEBUG_PERFORMANCE_METRICS == 1)
@@ -156,9 +160,14 @@ void PerformanceMetrics_Task(void *pvParameters)
 //======================================== ISR's ================================================//
 //===============================================================================================//
 
+// none
 
 //===============================================================================================//
 //========================================= GRAVEYARD ===========================================//
 //===============================================================================================//
+
+#ifdef __cplusplus
+	} // extern "C" {
+#endif
 
 // EOF

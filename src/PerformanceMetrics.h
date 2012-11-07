@@ -1,11 +1,11 @@
 //!
 //! @file 		PerformanceMetrics.h
-//! @author 	Geoffrey Hunter (gbmhunter@gmail.com)
-//! @date 		27/09/2011
-//! @brief 		Header file for PerformanceMetrics.c
+//! @author 	Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
+//! @date 		16/10/2011
+//! @brief 		Performance measuring task for the FreeRTOS operating system.
 //! @details
-//!		<b>Last Modified:			</b> 27/09/2011					\n
-//!		<b>Version:					</b> v2.0						\n
+//!		<b>Last Modified:			</b> 07/11/2012					\n
+//!		<b>Version:					</b> v2.0.1						\n
 //!		<b>Company:					</b> CladLabs					\n
 //!		<b>Project:					</b> Free Code Modules			\n
 //!		<b>Language:				</b> C							\n
@@ -16,24 +16,42 @@
 //!		<b>Documentation Format:	</b> Doxygen					\n
 //!		<b>License:					</b> GPLv3						\n
 //!	
-//!		See the Doxygen documentation or PerformanceMetrics.c for a detailed description on this module.
+//!		CHANGELOG:
+//!			v2.0.1 -> Added C++ guards. Moved documentation into .h file.
+//!				Added a few more comments to functions.
 //!		
 
 //===============================================================================================//
-//======================================== HEADER GUARD =========================================//
+//============================================ GUARDS ===========================================//
 //===============================================================================================//
 
-#ifndef _PERFORMANCE_METRICS_H
-#define _PERFORMANCE_METRICS_H
+#ifndef PERFORMANCE_METRICS_H
+#define PERFORMANCE_METRICS_H
+
+#ifdef __cplusplus
+	extern "C" {
+#endif
 
 //===============================================================================================//
 //=================================== PUBLIC FUNCTION PROTOTYPES ================================//
 //===============================================================================================//
 
+//! @brief 		Start-up function for power management
+//! @details 	Creates power management task, creates commmand queue, starts the ADC
+//!				creates interrupt sync semaphore, calls PowerMgmt_SetInitialParameters()
+//!	@note		Not thread-safe. Do not call from any tasks, but call from main() before 
+//!				scheduler is started.
+//! @public
 void PerformanceMetrics_Start(uint32 taskStackSize, uint8 taskPriority);
+
+//! @brief		Returns the task handle for PerformanceMetrics_Task()
+//! @public
 xTaskHandle PerformanceMetrics_ReturnTaskHandle(void);
 
-// End of header guard
+#ifdef __cplusplus
+	} // extern "C" {
 #endif
+
+#endif // #ifndef PERFORMANCE_METRICS_H
 
 // EOF
