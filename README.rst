@@ -5,7 +5,7 @@ FreeRTOS Performance Metrics Library
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2011/10/16
 - Last Modified: 2013/06/04
-- Version: v2.0.1.1
+- Version: v2.0.1.2
 - Company: CladLabs
 - Project: n/a
 - Language: C
@@ -55,6 +55,7 @@ Changelog
 ======== ========== ===================================================================================================
 Version  Date       Comment
 ======== ========== ===================================================================================================
+v2.0.1.2 2013/06/04	Removed .hgingore and .hgtags files from root (old Mercurial repo files).
 v2.0.1.1 2013/06/04 Added README.rst.
 v2.0.1.0 2012/11/06 Added C++ guards. Moved documentation into .h file. Added a few more comments to functions.
 v2.0.0.0 2012/10/01 Moved code into ./src/. Modified comments.
